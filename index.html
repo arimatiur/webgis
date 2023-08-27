@@ -27,12 +27,15 @@
         "esri/views/MapView",
         "esri/layers/GeoJSONLayer",
         "esri/widgets/BasemapGallery",
-      ], function (Map, MapView, GeoJSONLayer, BasemapGallery) {
+        "esri/layers/FeatureLayer",
+      ], function (Map, MapView, GeoJSONLayer, BasemapGallery, FeatureLayer) {
         //library
-        // const map = new Map({
-        //   //variable
-        //   basemap: "streets-vector", // Basemap layer service
-        // });
+
+        //MAP CONFIG
+        const map = new Map({
+          //variable
+          basemap: "streets-vector", // Basemap layer service
+        });
         const view = new MapView({
           //tampilan peta
           map: map, //parameter yg dibutuhkan di library map view
@@ -40,17 +43,27 @@
           zoom: 15, // Zoom level
           container: "viewDiv", // nyari Div element html
         });
-        const jsonlayersawit = new GeoJSONLayer({
-          url: "https://raw.githubusercontent.com/auudaa/webgis/main/src/sawit.geojson",
+
+        //LAYER CONFIG
+        // const jsonlayersawit = new GeoJSONLayer({
+        //   url: "https://raw.githubusercontent.com/auudaa/webgis/main/src/sawit.geojson",
+        // });
+        // map.add(jsonlayersawit);
+        const sawitfeaturelayer = new FeatureLayer({
+          url: "https://services-ap1.arcgis.com/k7mXQiKVwCwqyBIp/ArcGIS/rest/services/Astrid_Digitasi_WFL1/FeatureServer/4",
         });
-        map.add(jsonlayersawit);
+        map.add(sawitfeaturelayer);
+
+        //WIDGET CONFIG
         let basemapGallery = new BasemapGallery({
           view: view,
         });
-        // Add widget to the top right corner of the view
         view.ui.add(basemapGallery, {
           position: "top-right",
         });
+
+        // Add widget to the top right corner of the view
+
         // const jsonlayer = new GeoJSONLayer({
         //     url: "https://raw.githubusercontent.com/auudaa/webgis/main/src/sawit.geojson"
         // });
